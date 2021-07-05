@@ -4,11 +4,12 @@
 	"description": "用于初始化ICE组件库文件结构",
 	"version": "0.0.4",
 	"engines": {
-		"vscode": "^1.57.0"
+		"vscode": "^1.41.0"
 	},
 	"categories": [
 		"Other"
 	],
+	"icon": "https://github.com/ccCaowenyue/CocosICECompInit/blob/master/ico.ico?raw=true",
 	"activationEvents": [
 		"onCommand:icecomponentinit.InitICEComponent"
 	],
@@ -21,17 +22,14 @@
 			}
 		],
 		"menus": {
-		
 			"explorer/context": [
-			  {
-				"command": "icecomponentinit.InitICEComponent",
-			
-				"group": "1_modification",
-				
-				"when": "explorerResourceIsFolder"
-			  }
+				{
+					"command": "icecomponentinit.InitICEComponent",
+					"group": "1_modification",
+					"when": "explorerResourceIsFolder"
+				}
 			]
-		  }
+		}
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run package",
@@ -60,5 +58,5 @@
 		"webpack": "^5.38.1",
 		"webpack-cli": "^4.7.0"
 	},
-	"publisher":"ccCaowenyue"
+	"publisher": "ccCaowenyue"
 }
