@@ -3,3 +3,6 @@
 ### QQ：2940867221
 ### 微信：Alibabia
 ### 邮箱：wenyue@cocos.com
+
+# 使用方式
+![avatar](https://github.com/ccCaowenyue/CocosICECompInit/blob/master/Test.gif?raw=true)

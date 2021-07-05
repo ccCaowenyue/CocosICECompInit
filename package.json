@@ -1,8 +1,8 @@
 {
-	"name": "Cocos ICE Component Init",
+	"name": "icecomponentinit",
 	"displayName": "Cocos ICE Component Init",
 	"description": "用于初始化ICE组件库文件结构",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"engines": {
 		"vscode": "^1.57.0"
 	},
