@@ -1,0 +1,11 @@
+{
+    "prefab": "__template__.prefab",
+    "icon": "db://edu-editor-component/external/component/__template__/res/effectPic3.png",
+    "type": "component",
+    "tab": "interactive",
+    "author": "Cocos",
+    "description": "这是一个__template__题目",
+    "name": "__template__",
+    "tabOrder":1,
+    "sort":1
+}
