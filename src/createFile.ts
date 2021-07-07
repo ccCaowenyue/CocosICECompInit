@@ -1,67 +1,75 @@
-import { readdir, writeFile ,mkdir,exists,readFile} from 'fs'
-import { join } from 'path'
-import { promisify } from 'util'
+import { readdir, writeFile, mkdir, exists, readFile } from 'fs';
+import { join } from 'path';
+import { promisify } from 'util';
 import * as vscode from 'vscode';
-const indexFileName = 'index'
-const indexFileExt = '.ts'
+const indexFileName = 'index';
+const indexFileExt = '.ts';
 
-const prefabName = 'prefab'
-const prefabExtention = '.meta'
+const prefabName = 'prefab';
+const prefabExtention = '.prefab';
 
-const descFileName = 'desc'
-const descFileExt = '.json'
+const descFileName = 'desc';
+const descFileExt = '.json';
+const folderName = ['res', 'script', 'anim', 'prefab'];
 
-const folderName = ['res','script','anim','prefab']
-
-
-export async function genIndex(dir: string) {
-  // 得到目录下所有文件名集合
-  const result = await promisify(readdir)(dir)
-
-  // 创建 newdir 目录
-  for(let i=0;i<folderName.length;i++){
-    mkdir(dir+'/'+folderName[i], function(err) {
+export function genIndex(dir: string) {
+  let disposable=vscode.window.showInputBox({ prompt: `输入组件名称` }).then(function(msg){
+    if (!msg) {
+      exports.logger("error", `组件名称不能为空!`);
+      throw new Error(`组件名称不能为空!`);
+    } else {
+      mkdir(dir + '/' + msg, function (err) {
         if (err) {
-            throw err;
+          vscode.window.showInformationMessage('文件夹:'+msg+'创建失败！');
+          throw err;
         }
-    });
-  }
-//   promisify(writeFile)(join(dir+'/script', indexFileName + indexFileExt), '')
+      });
+      // 得到目录下所有文件名集合
+      const result =  promisify(readdir)(dir);
+      // 创建 目录
+      for (let i = 0; i < folderName.length; i++) {
+        mkdir(dir +'/' + msg+'/' + folderName[i], function (err) {
+          if (err) {
+            vscode.window.showInformationMessage('文件夹:'+folderName[i]+'创建失败！');
+            throw err;
+          }
+        });
+      }
 
-  readFile(join(__dirname,'prefab.meta'), function(err, data) {
-    // console.log(data);
-    // 读取文件失败/错误
-    let fileName=dir.split('\\')[dir.split('\\').length-1]
-    if (err) {
-        throw err;
-    }
-    promisify(writeFile)(join(dir+'/prefab', fileName + prefabExtention),data)
-   
-});
-
-readFile(join(__dirname,'NewScript.txt'), 'utf-8',function(err, data) {
-    // 读取文件失败/错误
-    if (err) {
-        throw err;
-    }
-    let fileName=dir.split('\\')[dir.split('\\').length-1]
-    data=data.replace(/__template__/g,fileName)
-    // 读取文件成功
-    promisify(writeFile)(join(dir+'/script', fileName + indexFileExt),data)
-   
-});
-
-readFile(join(__dirname,'desc.json'), 'utf-8', function(err, data) {
+      readFile(join(__dirname, 'prefab.prefab'), function (err, data) {
+        if (err) {
+          vscode.window.showInformationMessage(msg + prefabExtention+'创建失败！');
+          throw err;
+        }
+        promisify(writeFile)(join(dir +'/' + msg+ '/prefab', msg + prefabExtention), data);
   
-  // 读取文件失败/错误
-  if (err) {
-      throw err;
-  }
-  let fileName=dir.split('\\')[dir.split('\\').length-1]
-  data=data.replace(/__template__/g,fileName)
-  // 读取文件成功
-  promisify(writeFile)(join(dir+'/', descFileName + descFileExt),data)
-
-});
+      });
   
+      readFile(join(__dirname, 'NewScript.txt'), 'utf-8', function (err, data) {
+        if (err) {
+          vscode.window.showInformationMessage( msg + indexFileExt+'创建失败！');
+          throw err;
+        }
+        data = data.replace(/__template__/g, msg.toString());
+        promisify(writeFile)(join(dir +'/' + msg+ '/script', msg + indexFileExt), data);
+  
+      });
+  
+      readFile(join(__dirname, 'desc.json'), 'utf-8', function (err, data) {
+        if (err) {
+          vscode.window.showInformationMessage( descFileName + descFileExt+'创建失败！');
+          throw err;
+        }
+        data = data.replace(/__template__/g, msg.toString());
+        promisify(writeFile)(join(dir +'/' + msg+ '/', descFileName + descFileExt), data);
+  
+      });
+  
+  
+    }
+});;
+  
+
+
+
 }

@@ -2,14 +2,14 @@
 	"name": "icecomponentinit",
 	"displayName": "Cocos ICE Component Init",
 	"description": "用于初始化ICE组件库文件结构",
-	"version": "0.0.4",
+	"version": "0.0.7",
 	"engines": {
-		"vscode": "^1.41.0"
+		"vscode": "^1.57.0"
 	},
 	"categories": [
 		"Other"
 	],
-	"icon": "https://github.com/ccCaowenyue/CocosICECompInit/blob/master/ico.ico?raw=true",
+	"icon": "ico.ico",
 	"activationEvents": [
 		"onCommand:icecomponentinit.InitICEComponent"
 	],
@@ -18,7 +18,7 @@
 		"commands": [
 			{
 				"command": "icecomponentinit.InitICEComponent",
-				"title": "Init ICE Component"
+				"title": "新建Cocos ICE组件"
 			}
 		],
 		"menus": {
